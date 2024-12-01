@@ -1,50 +1,49 @@
-# React + TypeScript + Vite
+# Syncit
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Syncit** is a real time collaborative text editor inspired by google docs. It enables multiple users to edit a shared document in real-time while syncing changes across all connected clients.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[**Live Demo**](https://syncit.vercel.app/  
+---
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Real-Time Collaboration**: Updates are instantly reflected across all open sessions using Firestore listeners.  
+- **Content Persistence**: Changes are saved in Firestore, ensuring the document is never lost.  
+- **Optimized Performance**: Utilizes `throttle` to minimize the number of writes to the database while maintaining smooth user interaction.  
+- **Rich Text Editing**: Built with React Quill for an intuitive and feature rich text editor interface.  
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## How It Works
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 1. **Loading Content**
+- On initialization, the editor fetches the document content from Firestore.
+- If no document exists, the editor starts with a blank state.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### 2. **Real-Time Updates**
+- Listens for Firestore updates using `onSnapshot`.  
+- Automatically updates the local editor's content without overwriting the user's cursor position.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### 3. **Saving Changes**
+- Detects local text changes using the `text-change` event from React Quill.
+- Throttled updates (every 1 second) are pushed to Firestore using `setDoc`.
+
+---
+
+## Optimizations
+
+- **Throttling**: Saves content at controlled intervals using `lodash`'s `throttle` to reduce Firestore write operations.  
+- **Efficient Local Updates**: Distinguishes between local edits and external updates to prevent redundant writes or conflicts.
+
+---
+
+## Future Enhancements
+- **Authentication**: Add OAuth based authentication for secure and personalized editing sessions including role-based access control using firebase authentication and firestore rules.
+- **User Presence**: Display active collaborators and their cursors.
+- **Version History**: Implement a system to track and restore previous document versions.
+
+
+![image](https://github.com/user-attachments/assets/caf075d9-9688-4d6c-82a2-b9979afcc6bc)
+
+
