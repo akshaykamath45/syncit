@@ -1,13 +1,25 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-
+import { auth } from "./firebase-config";
+import { signInAnonymously, onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
 function App() {
+  useEffect(() => {
+    signInAnonymously(auth);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("User is signed in", user.uid);
+      } else {
+        console.log("User is signed out");
+      }
+    });
+  }, []);
+
   return (
-    <>
-      <h2>Syncit</h2>
-    </>
+    <div className="App">
+      <header>
+        <h1>Syncit</h1>
+      </header>
+    </div>
   );
 }
 
