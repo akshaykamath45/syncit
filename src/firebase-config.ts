@@ -9,7 +9,7 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBWQDvaGoMtURmZSsPZAEeD9Ic84Xk6_kw",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "syncit-real-time-collaboration.firebaseapp.com",
   projectId: "syncit-real-time-collaboration",
   storageBucket: "syncit-real-time-collaboration.firebasestorage.app",
