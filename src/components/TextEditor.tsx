@@ -55,7 +55,7 @@ const TextEditor = () => {
       });
       // listening for local text changes and saving it to firestore
       const editor = quillRef.current.getEditor();
-      editor.on("text-change", (delta: any, oldDelta: any, source: any) => {
+      editor.on("text-change", (_delta: any, _oldDelta: any, _source: any) => {
         isLocalChange.current = true;
         setIsEditing(true);
         saveContent();
