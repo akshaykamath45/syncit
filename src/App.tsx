@@ -2,6 +2,7 @@ import "./App.css";
 import { auth } from "./firebase-config";
 import { signInAnonymously, onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
+import TextEditor from "./components/TextEditor.tsx";
 function App() {
   useEffect(() => {
     signInAnonymously(auth);
@@ -19,6 +20,7 @@ function App() {
       <header>
         <h1>Syncit</h1>
       </header>
+      <TextEditor/>
     </div>
   );
 }
