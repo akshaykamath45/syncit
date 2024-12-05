@@ -3,7 +3,7 @@
 **Syncit** is a real time collaborative text editor inspired by google docs. It enables multiple users to edit a shared document in real-time while syncing changes across all connected clients.
 
 
-[**Live Demo**](https://syncit.vercel.app/  
+[**Live Demo**](https://syncit.vercel.app/  )
 ---
 
 ## Features
